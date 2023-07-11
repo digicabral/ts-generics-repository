@@ -1,6 +1,8 @@
 import { MongoClient } from "mongodb";
 
+import { Hero } from "./entities/Hero";
 import { Spartan } from "./entities/Spartan";
+import { HeroRepository } from "./repositories/HeroRepository";
 import { SpartanRepository } from "./repositories/SpartanRepository";
 
 (async () => {
@@ -16,4 +18,9 @@ import { SpartanRepository } from "./repositories/SpartanRepository";
 
   const count = await repository.countOfSpartans();
   console.log(`the count of spartans is ${count}`);
+
+  const hero = new Hero("Spider Man", 200);
+  const repositoryHero = new HeroRepository(db, "heroes");
+  const resultHero = await repositoryHero.create(hero);
+  console.log(`hero inserted with ${resultHero ? "success" : "fail"}`);
 })();
